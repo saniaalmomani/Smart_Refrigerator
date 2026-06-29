@@ -6,27 +6,29 @@
     <title>ثلاجة نضارة الذكية مدعومة بالذكاء الاصطناعي | Nadara AI Smart Fridge</title>
     <style>
         :root {
-            --bg-main: #06090e;
-            --bg-card: #0e1622;
-            --bg-secondary: #152030;
-            --text-main: #f1f5f9;
-            --text-muted: #8e9bb0;
-            --ai-cyan: #00f0ff;
-            --ai-violet: #bd00ff;
-            --ai-magenta: #ff007a;
-            --ai-green: #00ff88;
-            --ai-amber: #ffaa00;
-            --border-color: #1f3047;
-            --shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-            --shadow-glow-cyan: 0 0 30px rgba(0, 240, 255, 0.25);
-            --shadow-glow-violet: 0 0 30px rgba(189, 0, 255, 0.25);
+            --bg-main: #020408;
+            --bg-card: rgba(14, 22, 34, 0.7);
+            --bg-secondary: rgba(21, 32, 48, 0.8);
+            --text-main: #ffffff;
+            --text-muted: #a0aec0;
+            --ai-cyan: #00f7ff;
+            --ai-violet: #d000ff;
+            --ai-magenta: #ff0095;
+            --ai-green: #00ff9d;
+            --ai-amber: #ffb300;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            --shadow-glow-cyan: 0 0 30px rgba(0, 247, 255, 0.4);
+            --shadow-glow-violet: 0 0 30px rgba(208, 0, 255, 0.4);
             --fridge-ext: #1a2436;
-            --fridge-handle: #00f0ff;
+            --fridge-handle: #00f7ff;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         [data-finish="cyberblack"] {
-            --fridge-ext: #0a0f18;
-            --fridge-handle: #bd00ff;
+            --fridge-ext: #05080c;
+            --fridge-handle: #d000ff;
         }
         [data-finish="titanium"] {
             --fridge-ext: #2c3e50;
@@ -45,12 +47,34 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'Cairo', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-main);
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .hologram-emoji {
+            display: inline-block;
+            filter: drop-shadow(0 0 8px currentColor);
+            animation: holoFloat 3s infinite ease-in-out;
+            color: var(--ai-cyan);
+        }
+
+        @keyframes holoFloat {
+            0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 8px currentColor) brightness(1); }
+            50% { transform: translateY(-8px) scale(1.1); filter: drop-shadow(0 0 15px currentColor) brightness(1.4); }
         }
 
         /* Interactive Neural Network AI Background Canvas */
@@ -91,10 +115,16 @@
         }
         .btn:active { transform: scale(0.96); }
         .btn-ai {
-            background: linear-gradient(135deg, var(--ai-cyan), var(--ai-violet));
+            background: linear-gradient(135deg, var(--ai-cyan), var(--ai-violet), var(--ai-magenta));
+            background-size: 200% 200%;
+            animation: gradientMove 3s infinite alternate;
             color: #fff;
             box-shadow: 0 4px 25px rgba(0, 240, 255, 0.4);
             text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
         }
         .btn-ai::before {
             content: '';
@@ -128,9 +158,10 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(6, 9, 14, 0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-color);
+            background: rgba(2, 4, 8, 0.8);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--glass-border);
             padding: 16px 0;
         }
         .header-content {
@@ -233,6 +264,28 @@
         .fridge-showcase-wrap {
             display: flex; flex-direction: column; align-items: center; position: relative;
         }
+
+        .video-demo-card {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 40px;
+            padding: 15px;
+            position: relative;
+            z-index: 5;
+            transition: transform 0.4s ease;
+        }
+        .video-demo-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+        .video-frame {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--ai-cyan);
+            box-shadow: 0 0 25px rgba(0, 247, 255, 0.3);
+            background: #000;
+        }
         .fridge-finish-bar {
             display: flex; gap: 10px; margin-bottom: 22px; background: var(--bg-card);
             padding: 8px 18px; border-radius: 50px; border: 1px solid var(--border-color);
@@ -253,9 +306,9 @@
         }
         .fridge-body {
             position: absolute; width: 100%; height: 100%;
-            background: #090e17; border-radius: 28px;
-            border: 3px solid var(--ai-cyan);
-            box-shadow: var(--shadow-glow-cyan), inset 0 0 50px rgba(0,0,0,0.9);
+            background: #05080c; border-radius: 28px;
+            border: 2px solid var(--ai-cyan);
+            box-shadow: var(--shadow-glow-cyan), inset 0 0 60px rgba(0,247,255,0.1);
             overflow: hidden; display: flex; flex-direction: column;
         }
 
@@ -318,9 +371,10 @@
         /* 3D Doors */
         .fridge-door {
             position: absolute; top: 0; width: 50%; height: 100%;
-            background: var(--fridge-ext); border: 1px solid rgba(255,255,255,0.1);
+            background: var(--fridge-ext); border: 1px solid var(--glass-border);
             transition: transform 0.85s cubic-bezier(0.25, 1, 0.5, 1); z-index: 20;
-            display: flex; align-items: center; box-shadow: 8px 0 30px rgba(0,0,0,0.8);
+            display: flex; align-items: center; box-shadow: 8px 0 40px rgba(0,0,0,0.9);
+            backdrop-filter: brightness(1.1);
         }
         .door-left { left: 0; transform-origin: left center; border-radius: 24px 0 0 24px; justify-content: flex-end; }
         .door-right { right: 0; transform-origin: right center; border-radius: 0 24px 24px 0; justify-content: flex-start; }
@@ -472,7 +526,7 @@
     <header>
         <div class="container header-content">
             <a href="#" class="logo">
-                <span style="font-size:2rem; filter:drop-shadow(0 0 10px var(--ai-cyan));">❄</span>
+                <span class="hologram-emoji" style="font-size:2rem; color:var(--ai-cyan);">❄</span>
                 نضارة <span style="color:var(--ai-cyan); font-weight:300;">AI</span>
                 <span class="ai-chip">NEURO-CORE v9</span>
             </a>
@@ -504,23 +558,23 @@
                 <p>افتح الثلاجة وشغّل الماسح البصري (AI Vision) ليقوم بالتعرف الفوري على المكونات، مراقبة نمو البكتيريا، واقتراح أشهى الوصفات قبل تلف الأطعمة.</p>
 
                 <div style="display:flex; gap:15px; flex-wrap:wrap; margin-bottom:35px;">
-                    <button class="btn btn-ai" onclick="toggleFridgeDoor()">افتح الثلاجة الذكية ❄</button>
-                    <button class="btn btn-outline-ai" onclick="triggerAIScan()">🤖 تشغيل الماسح البصري AI</button>
+                    <button class="btn btn-ai" onclick="toggleFridgeDoor()">افتح الثلاجة الذكية <span class="hologram-emoji" style="color:#fff;">❄</span></button>
+                    <button class="btn btn-outline-ai" onclick="triggerAIScan()"><span class="hologram-emoji">🤖</span> تشغيل الماسح البصري AI</button>
                 </div>
 
                 <!-- Live AI Stats -->
-                <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; background:var(--bg-card); padding:20px; border-radius:20px; border:1px solid var(--border-color);">
-                    <div>
+                <div class="glass-card" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; padding:20px; border-radius:20px;">
+                    <div style="text-align: center;">
                         <span style="font-size:0.8rem; color:var(--text-muted);">دقة فحص البكتيريا</span>
-                        <h4 style="font-size:1.5rem; color:var(--ai-cyan); font-weight:900;">99.98%</h4>
+                        <h4 style="font-size:1.5rem; color:var(--ai-cyan); font-weight:900;" class="counter" data-target="99.98">0%</h4>
                     </div>
-                    <div>
+                    <div style="text-align: center;">
                         <span style="font-size:0.8rem; color:var(--text-muted);">توقع التلف المسبق</span>
-                        <h4 style="font-size:1.5rem; color:var(--ai-violet); font-weight:900;">+14 يوم</h4>
+                        <h4 style="font-size:1.5rem; color:var(--ai-violet); font-weight:900;" class="counter" data-target="14">+0 يوم</h4>
                     </div>
-                    <div>
+                    <div style="text-align: center;">
                         <span style="font-size:0.8rem; color:var(--text-muted);">توفير الطاقة بالتعلم</span>
-                        <h4 style="font-size:1.5rem; color:var(--ai-green); font-weight:900;">70%</h4>
+                        <h4 style="font-size:1.5rem; color:var(--ai-green); font-weight:900;" class="counter" data-target="70">0%</h4>
                     </div>
                 </div>
             </div>
@@ -550,24 +604,24 @@
                         <div class="interior-shelves">
                             <div class="shelf" onclick="inspectAIZone('beverages', 'المشروبات الذكية')">
                                 <span class="shelf-badge">الذكاء الحيوي +1.5°C</span>
-                                <span class="food-icon">🥛</span>
-                                <span class="food-icon">🧃</span>
-                                <span class="food-icon">🍾</span>
+                                <span class="food-icon hologram-emoji" style="color:#fff">🥛</span>
+                                <span class="food-icon hologram-emoji" style="color:#fff">🧃</span>
+                                <span class="food-icon hologram-emoji" style="color:#fff">🍾</span>
                             </div>
 
                             <div class="shelf" onclick="inspectAIZone('meats', 'صفر مئوية بالتعلم العشبي')">
                                 <span class="shelf-badge">تجميد النانو AI 0.0°C</span>
-                                <span class="food-icon">🥩</span>
-                                <span class="food-icon">🐟</span>
-                                <span class="food-icon">🧀</span>
+                                <span class="food-icon hologram-emoji" style="color:#fff">🥩</span>
+                                <span class="food-icon hologram-emoji" style="color:#fff">🐟</span>
+                                <span class="food-icon hologram-emoji" style="color:#fff">🧀</span>
                             </div>
 
                             <div class="shelf" onclick="inspectAIZone('produce', 'درج النضارة العصبي')">
                                 <span class="shelf-badge">تأين البلازما العصبي +3°C</span>
-                                <span class="food-icon">🍓</span>
-                                <span class="food-icon">🥦</span>
-                                <span class="food-icon">🍇</span>
-                                <span class="food-icon">🥑</span>
+                                <span class="food-icon hologram-emoji" style="color:#fff">🍓</span>
+                                <span class="food-icon hologram-emoji" style="color:#fff">🥦</span>
+                                <span class="food-icon hologram-emoji" style="color:#fff">🍇</span>
+                                <span class="food-icon hologram-emoji" style="color:#fff">🥑</span>
                             </div>
                         </div>
 
@@ -596,14 +650,34 @@
                         ⚡ الفحص الليزري AI
                     </button>
                 </div>
+
+                <!-- Video Demo Section -->
+                <div class="video-demo-card glass-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                        <span style="color:var(--ai-cyan); font-weight:900; font-size:0.8rem; letter-spacing:1px;">LIVE DEMO / عرض توضيحي</span>
+                        <span class="ai-chip" style="animation:none; font-size:0.6rem;">4K AI STREAM</span>
+                    </div>
+                    <div class="video-frame">
+                        <iframe
+                            src="https://drive.google.com/file/d/1r4Z2vVY8ENhIluO1u9NDTILVywUt06Fl/preview"
+                            width="100%"
+                            height="100%"
+                            allow="autoplay"
+                            style="border:none;">
+                        </iframe>
+                    </div>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:10px; text-align:center;">
+                        شاهد كيف يعمل محرك "نضارة" في رصد جودة الأطعمة لحظياً
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- AI Live Nutritional Advisor Banner -->
     <section class="container">
-        <div class="ai-advisor-banner">
-            <div class="advisor-avatar">🤖</div>
+        <div class="ai-advisor-banner glass-card" style="border: 1px solid var(--ai-violet);">
+            <div class="advisor-avatar hologram-emoji">🤖</div>
             <div class="advisor-content" style="flex:1;">
                 <h4>مستشار نضارة الذكي (AI Live Feedback) <span style="font-size:0.75rem; background:var(--ai-green); color:#000; padding:2px 8px; border-radius:10px; font-weight:900;">تحليل مباشر</span></h4>
                 <div class="typing-text" id="aiAdviceText">مرحباً بك! اضغط على "تشغيل الماسح البصري AI" داخل الثلاجة لأقوم بتحليل الأطعمة وإعطائك نصائح ذهبية لحفظها.</div>
@@ -618,16 +692,16 @@
             <p>اختر المكونات التي ترغب بطبخها اليوم، وسيقوم الـ AI بابتكار وجبة صحية فاخرة وحساب سعراتها الحرارية فوراً</p>
         </div>
 
-        <div class="ai-chef-section">
+        <div class="ai-chef-section glass-card">
             <h4 style="text-align:center; color:var(--ai-cyan); font-size:1.2rem;">اختر المكونات المتوفرة في ثلاجتك الآن:</h4>
             
             <div class="ingredients-picker" id="ingPicker">
-                <div class="ing-pill selected" onclick="toggleIng(this)"><span>🍗</span> صدور الدجاج</div>
-                <div class="ing-pill selected" onclick="toggleIng(this)"><span>🍄</span> فطر المشروم</div>
-                <div class="ing-pill selected" onclick="toggleIng(this)"><span>🥦</span> بروكلي طازج</div>
-                <div class="ing-pill" onclick="toggleIng(this)"><span>🧀</span> جبنة بارميزان</div>
-                <div class="ing-pill" onclick="toggleIng(this)"><span>🍅</span> طماطم شيري</div>
-                <div class="ing-pill" onclick="toggleIng(this)"><span>🥑</span> أفوكادو</div>
+                <div class="ing-pill selected" onclick="toggleIng(this)"><span class="hologram-emoji">🍗</span> صدور الدجاج</div>
+                <div class="ing-pill selected" onclick="toggleIng(this)"><span class="hologram-emoji">🍄</span> فطر المشروم</div>
+                <div class="ing-pill selected" onclick="toggleIng(this)"><span class="hologram-emoji">🥦</span> بروكلي طازج</div>
+                <div class="ing-pill" onclick="toggleIng(this)"><span class="hologram-emoji">🧀</span> جبنة بارميزان</div>
+                <div class="ing-pill" onclick="toggleIng(this)"><span class="hologram-emoji">🍅</span> طماطم شيري</div>
+                <div class="ing-pill" onclick="toggleIng(this)"><span class="hologram-emoji">🥑</span> أفوكادو</div>
             </div>
 
             <div style="text-align:center;">
@@ -738,6 +812,44 @@
     <script>
         let isOpened = false;
         let isScanning = false;
+
+        // 0. Counters Animation
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const updateCount = () => {
+                    const current = parseFloat(counter.innerText.replace(/[^0-9.]/g, '')) || 0;
+                    const increment = target / speed;
+
+                    if (current < target) {
+                        const nextVal = current + increment;
+                        if (counter.innerText.includes('%')) {
+                            counter.innerText = nextVal.toFixed(2) + '%';
+                        } else if (counter.innerText.includes('+')) {
+                            counter.innerText = '+' + Math.ceil(nextVal) + ' يوم';
+                        } else {
+                            counter.innerText = Math.ceil(nextVal) + '%';
+                        }
+                        setTimeout(updateCount, 1);
+                    } else {
+                        if (counter.innerText.includes('%')) {
+                            counter.innerText = target.toFixed(2) + '%';
+                        } else if (counter.innerText.includes('يوم')) {
+                            counter.innerText = '+' + target + ' يوم';
+                        } else {
+                            counter.innerText = target + '%';
+                        }
+                    }
+                };
+                updateCount();
+            });
+        };
+
+        // Trigger counters when page loads
+        window.addEventListener('DOMContentLoaded', animateCounters);
 
         // 1. Open/Close Doors
         function toggleFridgeDoor() {
@@ -891,11 +1003,18 @@
                 vx: (Math.random() - 0.5) * 1.2,
                 vy: (Math.random() - 0.5) * 1.2,
                 radius: Math.random() * 2.5 + 1,
-                color: i % 2 === 0 ? '#00f0ff' : '#bd00ff'
+                color: i % 2 === 0 ? '#00f7ff' : '#d000ff'
             });
         }
 
-        function animateNetwork() {
+        let lastTime = 0;
+        function animateNetwork(time) {
+            if (time - lastTime < 30) { // Limit to ~30fps for performance
+                requestAnimationFrame(animateNetwork);
+                return;
+            }
+            lastTime = time;
+
             ctx.clearRect(0, 0, width, height);
 
             for (let i = 0; i < particles.length; i++) {
@@ -913,13 +1032,16 @@
 
                 for (let j = i + 1; j < particles.length; j++) {
                     let p2 = particles[j];
-                    let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    let dx = p.x - p2.x;
+                    let dy = p.y - p2.y;
+                    let distSq = dx * dx + dy * dy; // Use squared distance to avoid Math.hypot (performance)
 
-                    if (dist < 140) {
+                    if (distSq < 19600) { // 140 * 140
+                        let dist = Math.sqrt(distSq);
                         ctx.beginPath();
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(p2.x, p2.y);
-                        ctx.strokeStyle = p.color === '#00f0ff' ? `rgba(0, 240, 255, ${1 - dist/140})` : `rgba(189, 0, 255, ${1 - dist/140})`;
+                        ctx.strokeStyle = p.color === '#00f7ff' ? `rgba(0, 247, 255, ${1 - dist/140})` : `rgba(208, 0, 255, ${1 - dist/140})`;
                         ctx.lineWidth = 0.8;
                         ctx.stroke();
                     }
